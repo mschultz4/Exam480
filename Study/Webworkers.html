@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Webworkers</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="styles.css" rel="stylesheet" type="text/css"/>
+	<style>	
+		
+		#wheel{
+			height: 20px;
+			width:20px;
+		}
+		
+		.inline{
+			display: inline;
+		}
+		#wheelTop{
+			display: flex;
+		}
+		
+		#wheelBottom{
+			display: flex;
+		}
+				
+		.spoke{
+			width: 10px;
+			height: 10px;
+		}
+		
+		#spoke1{
+			border-top-left-radius: 10px;
+			background-color: silver;
+		}
+		
+		#spoke2{
+			border-top-right-radius: 10px;
+			background-color: white;
+		}
+		
+		#spoke3{
+			border-bottom-left-radius: 10px;
+			background-color: white;
+		}
+		
+		#spoke4{
+			border-bottom-right-radius: 10px;
+			background-color: silver;
+		}
+	</style>
+	
+</head>
+<body>
+    <nav>
+        <iframe src="menu.htm"></iframe>
+    </nav>
+    <section>
+	    <h1>Webworkers</h1>
+	    <h2>API</h2>
+	    <p>First you want to create a worker</p>
+	    <ul>
+		    <li>var worker = new Worker("worker.js");</li>
+	    </ul>
+	    <p>The two most important methods are:</p>
+	    <ul>
+		    <li>worker.postMessage([1,2,3]);</li>
+		    <li>worker.onmessage(console.log(message););</li>
+	    </ul>
+	    <p>In the worker itself, these are functions</p>
+	    <p>Last you want to terminate a worker. Depending on whether you are in your main script or in the worker use:</p>
+	    <ul>
+		    <li>worker.terminate();</li>
+		    <li>close();</li>
+	    </ul>
+	    <h2>Example</h2>
+	    <div id="spinnerContainer">
+		    <p class="inline">calculate pi</p>
+		    <div id="wheel" >
+			    <div id="wheelTop">
+				    <div class="spoke" id="spoke1"></div>
+				    <div class="spoke" id="spoke2"></div>
+			    </div>
+			    <div id="wheelBottom">
+				    <div class="spoke" id="spoke3"></div>
+				    <div class="spoke" id="spoke4"></div>
+			    </div>
+		    </div>
+	    </div>
+	    <label>Loops</label>
+	    <input type="text" id="loops"></input>
+	    <button type="button" id="loopButton">Calculate (no worker)</button>
+	    <div id="display"></div>
+	
+	    <label>Loops</label>
+	    <input type="text" id="loopsWorker"></input>
+	    <button type="button" id="loopButtonWorker">Calculate (worker)</button>
+	    <div id="displayWorker"></div>
+    </section>
+</body>	
+<script type="text/javascript">
+
+    // Without Worker
+
+document.getElementById("loopButton").addEventListener("click", displayPI, false);
+
+function displayPI(){
+	var loops = document.getElementById("loops").value;
+	var Pi = calculatePI(loops);
+	document.querySelector("#display").textContent = Pi;
+}
+
+function calculatePI(loops){
+	var Pi = 0, n = 1, c = loops;
+	for (var i = 0; i <= c; i++) {
+	  Pi = Pi+(4/n)-(4/(n+2));
+	  n = n+4;
+	}
+	return Pi;
+}
+
+    // With Worker
+
+var worker = new Worker("worker.js");
+var buttonWorker = document.getElementById("loopButtonWorker");
+buttonWorker.addEventListener("click", postLoops, false);
+
+function postLoops(){
+    var loops = document.querySelector("#loopsWorker").value;
+    worker.postMessage(loops);
+}
+
+worker.addEventListener("message", receiveCalculation);
+
+function receiveCalculation (e) {
+    var message = e.data;
+    document.querySelector("#displayWorker").textContent = message;
+};
+
+    // Spinner
+
+window.onload = function () {
+    window.setInterval(tilt, 25);
+    var wheel = document.querySelector("#wheel");
+    var rotation = 0;
+
+    function tilt() {
+        if (rotation === 360) rotation = 0;
+        rotation += 10;
+        wheel.style.transform = "rotate(" + rotation + "deg)";
+    }
+
+
+};
+
+</script>
+</html>

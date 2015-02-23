@@ -1,0 +1,12 @@
+CACHE MANIFEST
+# V12
+# Explicitly cached entries
+AppCache.htm
+styles.css
+menu.htm
+
+# Files required to be on network
+NETWORK: 
+* 
+
+FALLBACK:

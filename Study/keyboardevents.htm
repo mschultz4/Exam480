@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Keyboard</title>
+	<style>	
+
+	</style>
+	
+</head>
+<body>	
+	<input type="text"></input>
+</body>	
+<script>
+
+document.getElementsByTagName("input")[0].addEventListener("keydown", typing);
+
+function typing(e){
+	if (window.event) var window = window.event.altKey;
+	else var window = "No!";
+	console.log(e.keyCode +
+				", "+ e.ctrlKey + ", " + window );
+}
+
+
+</script>
+</html>

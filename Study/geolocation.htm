@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+	<link href="styles.css" type="text/css" rel="stylesheet"/>
+    <title>Geolocation</title>
+	<style>	
+		h1 {
+			font-size: 10pt;
+			font-color: silver;
+		}
+	</style>
+	
+</head>
+<body>
+	<nav>
+		<iframe src="menu.htm"></iframe>
+	</nav>
+	<section>
+		<h1>Methods</h1>
+		<ul>
+			<li>window.navigator.getCurrentPosition(success callback, failure callback, properties)</li>
+			<li>window.navigator.watchPosition(success callback, failure callback, properties)</li>
+		</ul>
+		<h1>Properties</h1>
+		<ul>	
+			<li>callback</li>
+		</ul>
+		<section id="display">
+			<button id="locationButton">get location</button>
+		</section>
+		<section>
+			<h1>Resources</h1>
+			<ul>
+				<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation">MDN Geolocation</a></li>
+				<li><a href="diveintohtml5.info/geolocation.html">dive into html5</a></li>
+		</section>
+	</section>
+	<aside>
+		<pre>
+			<code>
+var locator = window.navigator.geolocation;
+	var display = document.querySelector("#display");
+		
+	document.getElementById("locationButton").addEventListener("click", callGeo );
+	
+	function callGeo(){
+		locator.getCurrentPosition(success, failure);
+	}
+	
+	function success (position){
+		var newDiv = document.createElement("div");
+		newDiv.textContent = "long: " + position.coords.longitude + " lat: " + position.coords.latitude;
+		display.appendChild(newDiv);
+		console.log("what the heck");
+	}
+	
+	function failure (e){
+		console.log(e.message);
+	}		
+			</code>
+		</pre>
+	</aside>
+</body>	
+<script>
+	var locator = window.navigator.geolocation;
+	var display = document.querySelector("#display");
+		
+	document.getElementById("locationButton").addEventListener("click", callGeo );
+	
+	function callGeo(){
+		locator.getCurrentPosition(success, failure);
+	}
+	
+	function success (position){
+		var newDiv = document.createElement("div");
+		newDiv.textContent = "long: " + position.coords.longitude + " lat: " + position.coords.latitude;
+		display.appendChild(newDiv);
+		console.log("what the heck");
+	}
+	
+	function failure (e){
+		console.log(e.message);
+	}
+	
+</script>
+</html>

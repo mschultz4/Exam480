@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+	<link href="styles.css" type="text/css" rel="stylesheet"/>
+    <title>Moving Elements</title>
+	<style>	
+		#circle{
+			height: 50px;
+			width: 50px;
+			border-radius: 25px;
+			border: 1px dotted black;
+		}
+		
+		#square {
+			transition: transform 2s;
+		}
+		
+		#square2{
+			background-color: lemonChiffon;
+			border: 1px dotted gray;
+		}
+						
+		.exampleSquare td{
+			height: 40px;
+			width: 40px;
+		}
+		
+		input {
+			width: 40px;
+		}
+		.alignRight{
+			text-align: right;
+		}
+		
+		#transformSelection{
+			margin: 30px 0 100px 50px;
+		}	
+			
+		#container{
+			width: 400px;
+			height: 300px;
+			border: 1px solid black;
+		}
+		
+		textarea{
+			width: 600px;
+			height: 800px;
+		}
+				
+	</style>
+	
+</head>
+<body>
+	<nav>
+		<iframe src="menu.htm"></iframe>
+	</nav>
+	<section class="main">
+		<table id="square" class="exampleSquare">
+			<tr><td style="background-color: blue;"></td><td style="background-color: red;"></td></tr>
+			<tr><td style="background-color: green;"></td><td style="background-color: yellow;"></td></tr>
+		</table>
+		<table id="transformSelection">
+			<caption>Transforms</caption>
+			<tbody>
+				<tr>
+					<td class="alignRight">Translate(</td><td><input type="text" id="translate" class="transform"></input>) length or %</td>
+				</tr>
+				<tr>
+					<td class="alignRight">Rotate(</td><td><input type="text" id="rotate" class="transform"></input>) angle</td>
+				</tr>
+				<tr>
+					<td class="alignRight">Scale(</td><td><input type="text" id="scale" class="transform"></input>) relative</td>
+				</tr>
+				<tr>
+					<td class="alignRight">Skew(</td><td><input type="text" id="skew" class="transform"></input>) angle</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr><td></td><td><button id="execute">execute</button></td></tr>
+			</tfoot>
+		</table>
+		<div id="container"> 
+			<span>inline</span>
+			<span>inline</span>
+			<div id="square2">the block </div>
+			
+			<span>inline</inline>
+			<div style="background-color: silver; height: 40px;">Box</div>
+		</div>
+		<span>Visibility</span>
+		<select id="visibility">
+			<option value="visible">Visible</option>
+			<option value="hidden">Hidden</option>
+			<option value="collapse">Collapse</option>
+			<option value="inherit">Inherit</option>
+		</select>
+		<span>Position</span>
+		<select id="position">
+			<option value="absolute">Absolute</option>
+			<option value="relative">Relative</option>
+			<option value="static">Static</option>
+			<option value="fixed">Fixed</option>
+		</select>
+		<span>Display</span>
+		<select id="display">
+			<option value="none">None</option>
+			<option value="inline">Inline</option>
+			<option value="block">Block</option>
+			<option value="list-item">List-item</option>
+		</select>
+		Top: <input class="direction" type="text" id="top"></input>
+		Right:<input class="direction" type="text" id="right"></input>
+		Bottom:<input class="direction" type="text" id="bottom"></input>
+		Left:<input class="direction" type="text" id="left"></input>
+	</section>
+	<aside>
+		<pre id="codeDisplay">
+var inputs = document.querySelectorAll(".transform");
+var selects = document.querySelectorAll("select, .direction");
+var square = document.getElementById("square");
+var values = {};
+
+document.getElementById("execute").onclick = function(){
+	[].forEach.call(inputs, function(element){
+		values[element.id] = element.value === "" ? 0 : element.value;
+	});
+	
+	square.style.transform = "translate(" + values.translate + ")" +
+	" rotate(" + values.rotate + ")" +
+	" scale(" + values.scale + ")" +
+	" skew(" + values.skew + ")";
+};
+
+[].forEach.call(selects, function (element){
+	element.addEventListener("change", function(e){
+		square2.style[element.id] = this.value;
+	});
+});
+		</pre>
+		<textarea id="codeInput" class="displayNone">
+		</textarea>
+	</aside>
+</body>	
+<script id="script">
+	var inputs = document.querySelectorAll(".transform");
+	var selects = document.querySelectorAll("select, .direction");
+	var square = document.getElementById("square");
+	var values = {};
+	
+	document.getElementById("execute").onclick = function(){
+		[].forEach.call(inputs, function(element){
+			values[element.id] = element.value === "" ? 0 : element.value;
+		});
+		
+		square.style.transform = "translate(" + values.translate + ")" +
+		" rotate(" + values.rotate + ")" +
+		" scale(" + values.scale + ")" +
+		" skew(" + values.skew + ")";
+	};
+	
+	[].forEach.call(selects, function (element){
+		element.addEventListener("change", function(e){
+			square2.style[element.id] = this.value;
+		});
+	});
+	
+	//Allow in page edit
+	
+	var codeInput = document.getElementById("codeInput");
+	var codeDisplay = document.getElementById("codeDisplay");
+	var script = document.getElementById("script");
+	codeDisplay.addEventListener("dblclick", editCode, false);
+	codeInput.addEventListener("blur", updateCode, false);
+	
+	function editCode(){
+		codeDisplay.classList.toggle("displayNone");
+		codeInput.innerHTML = script.innerHTML;
+		codeInput.classList.toggle("displayNone");
+	}
+	
+	function updateCode(){
+		codeDisplay.classList.toggle("displayNone");
+		codeDisplay.innerHTML = script.innerHTML = codeInput.value;
+		codeInput.classList.toggle("displayNone");
+	}
+	
+</script>
+</html>

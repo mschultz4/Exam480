@@ -1,0 +1,31 @@
+
+
+h1, h2{
+	color: silver;
+	font-size: 12pt;
+	}
+
+iframe{
+	border: none;
+	float: left;
+	width: 300px;
+	height: 1000px;
+}
+
+body {
+	display: flex;
+}
+
+table, tr, td{
+			border-collapse: collapse;
+		}
+
+.main {
+	width: 500px;
+	margin: 0 25px;
+}
+
+.displayNone{
+	display: none;
+}
+

@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Web Storage</title>
+	<style>	
+		
+		h1{
+			font-size: 1.1em;
+			color: silver;
+		}
+		#example{
+			display: flex;
+		}
+	
+		#input{
+			display: flex;
+			flex-direction: column;
+		}
+		table, td, tr, th, thead{
+			border-collapse: collapse;
+			border: 1px dotted silver;
+		}
+		
+		td {
+			
+			padding: 10px;
+			width: 75px;
+		}
+		
+	</style>
+	
+</head>
+<body>	
+	<section id="methods">
+		<h1>API</h1>
+		<ul>
+			<li>setItem</li>
+			<li>getItem</li>
+			<li>clear</li>
+			<li>key</li>
+			<li>removeItem</li>
+		</ul>
+	</section>
+
+	<section id="example">
+		<div id="input">
+			<div>
+				<input type="text" placeholder="key" id="setKey"></input>
+				<input type="text" placeholder="value" id="setValue"></input>
+				<button id="setItemButton">Set Item</button>
+			</div>
+			<div>
+				<input type="text" placeholder="key" id="removeInput"></input>
+				<button id="removeInputButton">Remove Item</button>
+			</div>
+			<div>
+				<button id="clear">Clear</button>
+			</div>
+			<div>
+				<textarea id="codeText" spellcheck="false"></textarea>
+				<button id="codeButton">Submit</button>
+			</div>
+		</div>
+		<div id="output">
+			<table id="outputTable">
+				<thead>
+					
+				</thead>
+			</table>
+		</div>
+	</section>
+</body>
+<script type="text/javascript">
+	window.onload = function(){
+		
+		var setButton = document.getElementById("setItemButton");
+		var storage = window.localStorage;
+		var key = document.getElementById("setKey");
+		var itemValue = document.getElementById("setValue");
+		var removeButton = document.getElementById("removeInputButton");
+		var clearButton = document.getElementById("clear");
+		
+		pageLoad();
+		setButton.onclick = set;
+		removeButton.onclick = remove;
+		clearButton.onclick = clearStorage;
+		document.getElementById("codeButton").onclick = code;
+		
+		function pageLoad(){
+			var elements = document.getElementsByTagName("input");
+			for (var i=0; i < elements.length; i++){
+				elements[i].value = "";
+			}
+			
+			var outputTable = document.getElementById("outputTable");
+			while (outputTable.firstChild) {
+				outputTable.removeChild(outputTable.firstChild);
+			}
+			
+			var newHead = document.createElement("thead");
+			newHead.innerHTML = "<tr><th>Key</th><th>Value</th></tr>";
+			outputTable.appendChild(newHead);
+			
+			for(var i=0; i < storage.length; i++){
+				var newRow = document.createElement("tr");
+				var newKey = document.createElement("td");
+				var newValue = document.createElement("td");
+				newKey.textContent = storage.key(i);
+				newValue.textContent = storage.getItem(storage.key(i));
+				newRow.appendChild(newKey);
+				newRow.appendChild(newValue);
+				outputTable.appendChild(newRow);
+			}
+		}
+		
+		
+		function set(){
+			var key = document.getElementById("setKey").value;
+			var itemValue = document.getElementById("setValue").value;
+			storage.setItem(key, itemValue);
+			pageLoad();
+		}
+		
+		function remove(){
+			var removeKey = document.getElementById("removeInput").value;
+			storage.removeItem(removeKey);
+			pageLoad();
+		}
+		
+		function clearStorage(){
+			storage.clear();
+			pageLoad();
+		}
+		
+		function code(){
+			var codeText = document.getElementById("codeText").value;
+			var newFunction = new Function(codeText);
+			try{
+				newFunction();
+			}
+			catch(e){
+				alert(e);
+			}
+			pageLoad();
+		}
+		
+	};
+</script>
+</html>

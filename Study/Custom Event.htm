@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Custom Event</title>
+	<style>	
+
+	</style>
+	
+</head>
+<body>	
+	<input type="text" id="boo"></input>
+</body>	
+<script>
+
+var custom = new CustomEvent(
+	"hotdog", {
+		detail: {message: "booya", time: new Date()},
+		bubbles: true,
+		cancelable: true
+	}
+);
+
+document.body.addEventListener("hotdog", ketchup, false);
+
+function ketchup(e){
+	console.log(e.detail.message + " " + e.detail.time);
+}
+
+document.querySelector("#boo").dispatchEvent(custom);
+
+</script>
+</html>

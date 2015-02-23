@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>New Semantic Elements</title>
+		<style>	
+			
+			
+			section > h1{
+				margin: .3em 0 .3em 0;
+			}
+			
+			#visually{
+				display: flex;
+				flex-direction: column;
+			}
+			
+			.middleblock{
+				display: flex;
+				flex: 1;
+				flex-direction: rows;
+			}
+			.example-block{
+				display: flex;
+				flex-direction: column;
+				flex: 4;
+			}
+			section {	
+				max-width: 600px;
+				margin: 0 auto;
+			
+			}
+			#elements{
+				border: 1px solid black;
+				margin: 0 auto;
+				width: 430px;
+		
+			}
+			.example{
+				background-color: 	#FBFBFB;
+				border: 1px solid #BEBEBE;
+				padding: 20px;
+			}
+		
+			h1, span{
+				color: silver;
+				font-size: 1.25em;
+				margin: 0 0;
+			}
+			.left{
+				float: left
+			}
+			.right{
+				margin-left: 150px;
+			}
+			
+			#asideExample{
+				background-color: #D3D3D3;
+				border: 1px solid #949494;
+				padding: 5px;
+				float: right;
+			}
+			nav {
+				float: left;
+				background-color: 	#FBFBFB;
+				border: 1px solid #BEBEBE;
+				padding: 10px;
+				flex: 1;
+			}
+			
+			mark{
+				background-color: 	#656565;
+				color: white;
+			}
+			
+			
+		</style>
+	</head>
+	<body>	
+
+		<section id="newelements">
+			<h1>Some new elements</h1>
+			<div id="elements">
+				<ol>
+					<div class="left">
+						<li>&lt;section&gt;</li>
+						<li> &lt;figcaption&gt;</li>
+						<li>&lt;hgroup&gt;</li>
+						<li>&lt;aside&gt;</li>
+						<li>&lt;article&gt;</li>
+					</div>
+					<div class="right">
+						<li>&lt;footer&gt;</li>
+						<li>&lt;header&gt;</li>
+						<li>&lt;mark&gt;</li>
+						<li>&lt;progress max="150" value="75"&gt;</li>
+						<li>&lt;nav&gt;</li>
+					</div>
+				</ol>	
+			</div>			
+		</section>
+		<section id="visually">
+			<h1> Visually</h1>
+			<div class="flex-body">
+				<header>
+					<h1 id="header" class="example">
+						&lt;header&gt;
+						<progress min="0" max="100" value="50"></progress>
+					</h1>
+					
+				</header>
+				<div class="middleblock">
+					<nav>
+						<h1>&lt;nav&gt;</h1>
+						link</br>
+						link</br>
+						link
+					</nav>
+					<div class="example-block">	
+						<div class="example">
+							<h1>&lt;hgroup&gt;</h1>
+							h1 </br>
+							h2 </br>
+							h3... </br>
+						</div>
+						<div class="example">
+							<h1>&lt;Section&gt;</h1>
+							<div id="asideExample">
+								<h1>&lt;Aside&gt;</h1>
+								<p>
+									Lorem ipsum dolor sit amet.
+								</p>
+							</div>
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <span>&lt;mark&gt;</span><mark>quis nostrud exercitation ullamco laboris nisi ut aliquip</mark><span>&lt;/mark&gt;</span> ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</p>
+
+						</div>
+					</div>	
+				</div>	
+				<footer>
+						<h1 id="footer" class="example">&lt;footer&gt;</h1>
+				</footer>
+			</div>
+		</section>
+		
+	</body>
+	<script>
+		window.onload = function(){
+			var progress = document.querySelector("#progress");
+			document.getElementById("progressOutput").textContent = progress.value;
+			document.getElementById("min").textContent = progress.getAttribute("min");
+			
+		}
+	</script>
+</html>

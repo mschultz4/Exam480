@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Bubbling</title>
+	<style>	
+		div{
+			border: 1px solid black;
+		}
+		
+		#div1{
+			height: 250px;
+			width: 250px;
+		}
+		
+		#div2{
+			height: 50%;
+			width: 50%;
+			position: relative;
+			top: 25%;
+			left: 25%
+		}
+		
+		#div3{
+			height: 50%;
+			width: 50%;
+			position: relative;
+			top: 25%;
+			left: 25%
+		}
+	</style>
+	
+</head>
+<body>	
+	<div id="div1">
+		<div id="div2">
+			<div id="div3">
+			</div>
+		</div>
+	</div>
+</body>	
+<script>
+
+document.getElementById("div1").addEventListener("click", fire1, false);
+document.getElementById("div2").addEventListener("click", fire2, false);
+document.getElementById("div3").addEventListener("click", fire3, false);
+
+function fire1(){
+	console.log("div1 clicked");
+}
+function fire2(){
+	console.log("div2 clicked");
+}
+
+function fire3(e){
+	console.log("div3 clicked");
+	e.stopPropagation();
+}
+
+
+
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!Doctype HTML>
+<html lang="en">
+<head>	
+	<meta charset="utf-8"/>
+	<title>Prototypes and Constructors</title>
+	<link href="styles.css" type="text/css" rel="stylesheet"></link>
+</head>
+<body>
+	<nav>
+		<iframe src="menu.htm"></iframe>
+	</nav>
+	<section class="main">
+	<h2>References</h2>
+	<ul>
+		<li><a href="http://stackoverflow.com/questions/4508313/advantages-of-using-prototype-vs-defining-methods-straight-in-the-constructor">Stackoverflow response</a></li>
+		<li><a href="http://code.tutsplus.com/tutorials/prototypes-in-javascript-what-you-need-to-know--net-24949">tutsplus</a></li>
+	</ul>
+	</section>
+	<script>
+		
+	
+		function bob (a){
+			this.name = a;
+			return this;
+		};
+		
+		bob.prototype.getName = function(){return this.name;};
+		
+		var x = new bob();
+		console.log(x.__proto__);
+	</script>
+</body>
+</html>

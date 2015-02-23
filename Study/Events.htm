@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Events</title>
+	<link href="styles.css" rel="stylesheet" type="text/css"/>
+	<style>	
+		#circle{
+			height: 50px;
+			width: 50px;
+			border-radius: 25px;
+			border: 1px dotted black;
+		}
+		
+	</style>
+	
+</head>
+<body>	
+	<div id="circle" draggable="true"></div>
+
+
+	
+</body>	
+<script>
+	var circle = document.getElementById("circle");
+	circle.addEventListener("mouseenter", 
+		function(){
+			circle.style.backgroundColor = "red";
+		});
+	circle.addEventListener("mouseleave",
+		function(){
+			circle.style.backgroundColor = "white";
+		}
+	);
+	
+	circle.addEventListener("click",
+		function(){
+			circle.style.backgroundColor = "pink";
+		}
+	);
+	
+	circle.addEventListener("dblclick",
+		function(){
+			circle.style.backgroundColor = "green";
+		}
+	);
+	
+	circle.addEventListener("dragstart", handleDrag, false);
+	
+	function handleDrag(){
+		this.style.opacity = ".4";
+	}
+	
+</script>
+</html>

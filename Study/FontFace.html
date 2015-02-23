@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8" />
+    <title>Font-Face</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="styles.css" type="text/css" rel="stylesheet"/> 
+	<style>	
+		@font-face{
+			font-family: OpenSans;
+			src: url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+		}
+		
+		
+		
+		#bob{
+			font-family: 'Roboto';
+			font-weight: bold;
+		}
+		
+		
+	</style>
+	
+</head>
+<body>	
+	<nav id="navigation">
+		<iframe src="menu.htm"></iframe>
+	</nav>
+	<section id="main">
+		<h1>Font-Face</h1>
+		<p>Declare the new font face</p>
+		<pre>
+			@font-face{
+				font-family: OpenSans;
+				src: url(http://fonts.googleapis.com/css?family=Open+Sans);
+			}
+		</pre>
+		<p>Use it</p>
+		<pre>
+			#bob{
+				font-family: OpenSans;
+			}
+		</pre>
+		<p id="bob">&ltp id="bob"&gtSome text with the new font&lt/p&gt
+		</p>
+	</section>
+</body>	
+<script>
+
+</script>
+</html>

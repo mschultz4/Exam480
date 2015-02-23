@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" manifest="manifest.mf">
+<head>
+    <meta charset="utf-8" />
+    <title>Form Validation</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="styles.css" type="text/css" rel="stylesheet"/>
+	<style>	
+		
+		input:required{
+			border: 1px solid red;
+		}
+		.invalid{
+			border: 1px solid red;
+		}
+		
+		form pre{
+			display: inline;
+		}
+		
+	</style>
+	
+</head>
+<body>	
+	<nav>
+		<iframe src="menu.htm"></iframe>
+	</nav>
+	<section>
+		<h1>Regular Expression</h1>
+		<h2>Create a new regular expression</h2>
+		<pre>
+			var exp = /ax+b/;
+			var exp = new RegExp("ax+b");
+		</pre>
+		<h2>Regular Expression Methods</h2>
+		<ul>
+			<li>exec (returns array)</li>
+			<li>text (returns true/false)</li>
+		</ul>
+		<h2>String Methods</h2>
+		<ul>
+			<li>match (returns array)</li>
+			<li>search (returns index)</li>
+			<li>replace</li>
+			<li>split</li>
+		</ul>
+		<h2>Examples</h2>
+		<pre>var string = "This is some example text.  Search 123 or replace text or match or exec, etc.";</pre>
+		<input type="text" id="exampleInput"></input>
+		<select id="method">
+			<option value="search">Search</option>
+			<option value="exec">Exec</option>
+			<option value="replace">Replace</option>
+			<option value="split">Split</option>
+			<option value="match">Match</option>
+			<option value="test">Test</option>
+		</select>
+		<button id="exampleButton">Enter</button>
+		<div id="exampleDisplay"></div>
+		<h1>Form Validation</h1>
+		<form>
+			<label>Phone Number</label>
+			<input type="text" placeholder="boo" id="phone" class="invalid validation"></input>
+			<code>/^\d{3}[.-]?\d{3}[.-]?\d{4}$/</code></br>
+			<label>Email</label>
+			<input type="text" id="email" class="invalid validation"></input>
+			<code>/^\w+@\w+\.[a-zA-Z]{2,4}$/</code>
+		</form>
+	</section>
+	<aside>
+		<pre>
+// methods example
+	var string = "This is some example text.  Search 123 or replace text or match or exec, etc.";
+	var result;
+	var regex;
+	document.querySelector("#exampleButton").addEventListener("click", function(){
+		var method = document.getElementById("method").value;
+		regex = new RegExp(document.querySelector("#exampleInput").value, "g");
+		if (method == "test" | method == "exec"){
+			result = regex[method](string);
+		}
+		else{
+			result = string[method](regex);
+		}
+		document.getElementById("exampleDisplay").textContent = result;
+	}, false);
+	
+	// validation examples
+	
+	var validationInputs = document.querySelectorAll(".validation");
+	[].forEach.call(validationInputs, function(input){
+		input.addEventListener("blur", test, false);
+	});
+		
+	var regularExpressions = {phone:/^\d{3}[.-]?\d{3}[.-]?\d{4}$/, email: /^\w+@\w+\.[a-zA-Z]{2,4}$/};
+	
+	function test(e){
+		var target = e.currentTarget;
+		regularExpressions[target.id].test(target.value) ? this.classList.remove("invalid") : this.classList.add("invalid");
+	}		
+		</pre>
+	</aside>
+</body>	
+<script>
+	// methods example
+	var string = "This is some example text.  Search 123 or replace text or match or exec, etc.";
+	var result;
+	var regex;
+	document.querySelector("#exampleButton").addEventListener("click", function(){
+		var method = document.getElementById("method").value;
+		regex = new RegExp(document.querySelector("#exampleInput").value, "g");
+		if (method == "test" | method == "exec"){
+			result = regex[method](string);
+		}
+		else{
+			result = string[method](regex);
+		}
+		document.getElementById("exampleDisplay").textContent = result;
+	}, false);
+	
+	// validation examples
+	
+	var validationInputs = document.querySelectorAll(".validation");
+	[].forEach.call(validationInputs, function(input){
+		input.addEventListener("blur", test, false);
+	});
+		
+	var regularExpressions = {phone:/^\d{3}[.-]?\d{3}[.-]?\d{4}$/, email: /^\w+@\w+\.[a-zA-Z]{2,4}$/};
+	
+	function test(e){
+		var target = e.currentTarget;
+		regularExpressions[target.id].test(target.value) ? this.classList.remove("invalid") : this.classList.add("invalid");
+	}
+	
+</script>
+</html>

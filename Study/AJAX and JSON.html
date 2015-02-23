@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>AJAX and JSON</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="styles.css" rel="stylesheet" type="text/css"/> 
+	<style>	
+	</style>
+	
+</head>
+<body>
+	<nav>
+		<iframe src="menu.htm"></iframe>
+	</nav>	
+	<section class="main">
+		<h1>JSON</h1>
+		<p>All you need to remember are two methods:</p>
+		<ul>
+			<li>JSON.stringify()</li>
+			<li>JSON.parse()</li>
+		</ul>
+		<section>
+			<label>Enter a JSON string</label>
+			<input id="JSONString"></input>
+			<button id="parse">Parse it</button>
+			<div id="parseOutput"></div>
+		</section>
+		<section>
+			<label>Ok. Now select a name</label>
+			<input id="name"></input>
+			<button id="nameButton">Show value</button>
+			<div id="valueOutput"></div>
+		</section>
+		<section>
+			<label>Stringify Back</label>
+			<button id="stringButton">String it</button>
+			<div id="stringOutput"></div>
+		</section>
+		<section>
+			<h1>AJAX JQUERY Style</h1>
+			<p>This is what you need to know.  These are the key settings passed as an object to $.AJAX()</p>
+			<ul>
+				<li>url</li>
+				<li>type</li>
+				<li>success</li>
+				<li>error</li>
+				<li>dataType</li>
+				<li>cache</li>
+			</ul>
+			<h2>the example</h2>
+			<p>This is our object on the server: {orange: "orange", apple: "red", grape: "purple"}</p>
+			<label>Enter a key</label>
+			<input id="ajaxKey"></input>
+			<button id="stringifyButton">Retrieve Value</button>
+			<div id="jqueryDisplay"></div>
+		</section>
+		<section>
+			<h1>Vanilla Javascript AJAX</h1>
+			<p>The Constructor: XMLHttpRequest()</p>
+			<h2>Properties</h2>
+			<h2>Steps</h2>
+			<ol>
+				<li>Construct a new object: var xhr = new XMLHttpRequest();</li>
+				<li>Open the connection: xhr.open("GET", "test.txt");</li>
+				<li>Send the request: xhr.send();</li>
+				<li>Wait for async response: xhr.onreadystatechange(callback);</li>
+			</ol>
+			<label>Enter Key</label>
+			<input id="vanillaKey"></input>
+			<button id="vanillaButton">send request</button>
+			<div id="vanillaDisplay"></div>
+		</section>
+	</section>
+	<aside>
+		<pre>
+//Using Jquery
+
+var asObject = {};
+document.querySelector("#parse").addEventListener("click", function(){
+	asObject = JSON.parse(document.querySelector("#JSONString").value);
+	document.querySelector("#parseOutput").textContent = asObject;
+}, false); 
+
+document.querySelector("#nameButton").addEventListener("click", function(){
+	var value = document.querySelector("#name").value;
+	document.querySelector("#valueOutput").textContent = asObject[value];
+}, false); 
+
+document.querySelector("#stringButton").addEventListener("click", function(){
+	asObject = JSON.stringify(asObject);
+	document.querySelector("#stringOutput").textContent = asObject;
+}, false); 
+
+$("#stringifyButton").click(
+	function(){
+		$.ajax(
+			{
+				url: "ajaxExample.json",
+				type: "GET",
+				cache: false,
+				dataType: "JSON",
+				success: function(data){
+					var key = $("#ajaxKey").val();
+					$("#jqueryDisplay").html(data[key]);
+				},
+				error: function(){
+					console.log("oops");
+				},
+				mimeType: "application/JSON"
+			}
+		);
+	}
+);
+
+// Vanilla Javascript
+
+var xhr = new XMLHttpRequest();
+
+$("#vanillaButton").click(function(){
+	xhr.open("GET", "ajaxExample.json", true);
+	xhr.overrideMimeType("appliction/JSON");	
+	xhr.responseType = "json";
+	xhr.send(null);});
+xhr.onreadystatechange = function () { 
+	var key = $("#vanillaKey").val();
+	var responseObject = xhr.response;
+	document.getElementById("vanillaDisplay").textContent = responseObject[key];
+}
+		</pre>
+	</aside>
+</body>	
+<script>
+
+//Using Jquery
+
+var asObject = {};
+document.querySelector("#parse").addEventListener("click", function(){
+	asObject = JSON.parse(document.querySelector("#JSONString").value);
+	document.querySelector("#parseOutput").textContent = asObject;
+}, false); 
+
+document.querySelector("#nameButton").addEventListener("click", function(){
+	var value = document.querySelector("#name").value;
+	document.querySelector("#valueOutput").textContent = asObject[value];
+}, false); 
+
+document.querySelector("#stringButton").addEventListener("click", function(){
+	asObject = JSON.stringify(asObject);
+	document.querySelector("#stringOutput").textContent = asObject;
+}, false); 
+
+$("#stringifyButton").click(
+	function(){
+		$.ajax(
+			{
+				url: "ajaxExample.json",
+				type: "GET",
+				cache: false,
+				dataType: "JSON",
+				success: function(data){
+					var key = $("#ajaxKey").val();
+					$("#jqueryDisplay").html(data[key]);
+				},
+				error: function(){
+					console.log("oops");
+				},
+				mimeType: "application/JSON"
+			}
+		);
+	}
+);
+
+// Vanilla Javascript
+
+var xhr = new XMLHttpRequest();
+
+$("#vanillaButton").click(function(){
+	xhr.open("GET", "ajaxExample.json", true);
+	xhr.overrideMimeType("appliction/JSON");	
+	xhr.responseType = "json";
+	xhr.send(null);});
+xhr.onreadystatechange = function () { 
+	var key = $("#vanillaKey").val();
+	var responseObject = xhr.response;
+	document.getElementById("vanillaDisplay").textContent = responseObject[key];
+}
+</script>
+</html>

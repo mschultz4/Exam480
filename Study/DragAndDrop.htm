@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Drag and Drop</title>
+	<style>	
+		
+		#circle{
+			height: 50px;
+			width: 50px;
+			border-radius: 25px;
+			border: 1px dotted black;
+			margin: auto 0px auto 20px;
+		}
+		
+		section{
+			display: flex;
+		}
+			
+		.dropzone {
+			margin: 50px;
+			height: 300px;
+			width: 300px;
+			border: 1px dotted silver;
+			padding: 30px;
+		}
+		
+		#popups > div{
+			width: 100px;
+			border: 1px solid silver;
+			margin: 10px;
+			border-radius: 10px;
+			padding: 5px;
+			text-align: center;
+		}
+		
+		.popup{
+			background-color: white;
+			transition: background-color 1.5s, color 1.5s;
+		}
+		
+		.popup.activated{
+			background-color: gray;
+			color: white;
+			border: 3px solid blue;
+		}
+		
+		.over{
+			border: 2px dashed black;
+		}
+		h1{
+			font-size: 12px;
+		}
+		
+	</style>
+	
+</head>
+<body>	
+	<section>
+		<div id="circle" draggable="true"></div>
+		<div class="dropzone"></div>
+		<div class="dropzone"></div>
+	</section>
+	<section id="popups">
+		<div id="dragstart" class="popup">dragStart</div>
+		<div id="dragleave" class="popup">dragLeave</div>
+		<div id="drag" class="popup">drag</div>
+		<div id="dragover" class="popup">dragOver</div>
+		<div id="dragenter" class="popup">dragEnter</div>
+		<div id="drop" class="popup">drop</div>
+		<div id="dragend" class="popup">dragEnd</div>
+	</section>	
+	<section>
+		<h1>Resources</h1>
+		<ul>
+			<li>
+				<a href="http://www.html5rocks.com/en/tutorials/dnd/basics/">html5 rocks dnd basics</a>
+			</li>
+			<li>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations">MDN Drag Operations</a>
+			</li>
+			<li>
+				<a href="http://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html">Quirks Mode DnD Rant</a>
+			</li>
+			<li>
+				<a href="http://html5doctor.com/native-drag-and-drop/">html5 Doctor Native DnD</a>
+			</li>
+			<li>
+				<a href="http://playground.html5rocks.com/#drag_and_drop">html5 Rocks Playground </a>
+			</li>
+		</ul>
+	</section>
+</body>	
+<script>
+	
+	var circle = document.getElementById("circle");
+	var dropzones = document.querySelectorAll(".dropzone");
+	var popups = document.querySelectorAll(".popup");
+	var drop = document.getElementById("drop");
+	var drag = document.getElementById("drag");
+	var dragover = document.getElementById("dragover");
+	var dragleave = document.getElementById("dragleave");
+	var dragend = document.getElementById("dragend");
+	var dragstart = document.getElementById("dragstart");
+	var dragenter = document.getElementById("dragenter");
+	
+	circle.addEventListener("dragstart", handleDragStart, false);
+	circle.addEventListener("dragend", handleDragEnd, false);
+	circle.addEventListener("drag", handleDrag, false);
+	
+	[].forEach.call(dropzones, function(zone){
+		zone.addEventListener("dragenter", handleDragEnter, false);
+		zone.addEventListener("dragleave", handleDragLeave, false);
+		zone.addEventListener("dragover", handleDragOver, false);
+		zone.addEventListener("drop", handleDrop, false);
+	});
+	
+	function cancel(e){
+		e.stopPropagation();
+		e.preventDefault();
+		
+		return false;
+	}
+	
+	function handleDragStart(e){
+		this.style.opacity = ".4";
+		e.dataTransfer.setData('Text', this.id);
+		dragstart.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000, dragstart, "activated" );
+	}
+	
+	function handleDragEnter(e){
+		cancel(e);
+		this.classList.add("over");
+		dragenter.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000, dragenter, "activated" );
+	} 
+	
+	function handleDragLeave(e){
+		e.preventDefault();
+		this.classList.remove("over");
+		dragleave.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000, dragleave, "activated" );
+	}
+	
+	function handleDragEnd(e){
+		dragend.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000, dragend, "activated" );
+	}
+	
+	function handleDragOver(e){
+		dragover.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000,dragover, "activated" );
+		cancel(e);
+	}
+	
+	function handleDrag(e){
+		drag.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000,drag, "activated" );
+	}
+	
+	function handleDrop(e){
+		e.preventDefault();
+		this.textContent = e.dataTransfer.getData('Text');
+		e.target.appendChild(circle);
+		drop.classList.toggle("activated");
+		window.setTimeout(toggleClass, 2000,drop, "activated" );
+	}
+	
+	function toggleClass(element, classy){
+		element.classList.toggle(classy);
+	}
+	
+</script>
+</html>

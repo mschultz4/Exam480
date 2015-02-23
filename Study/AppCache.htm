@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en" manifest="manifest.mf">
+<head>
+    <meta charset="utf-8" />
+    <title>Application Cache</title>
+	<link href="styles.css" type="text/css" rel="stylesheet"/>
+	<style>	
+		
+	</style>
+</head>
+<body>	
+	<nav>
+		<iframe src="menu.htm"></iframe>
+	</nav>
+	<section class="main"> 
+		<section>
+			<h1>The Object</h1>
+			<code>window.applicationCache</code>
+			<h2>Check the status</h2>
+			<button id="statusButton">Check Status</button>
+			<div id="statusDisplay"></div>
+			<h2>Update Cache</h2>
+			<button id="updateButton">Update Cache</button>
+			<h2>Swap Cache</h2>
+			<button id="swapButton">Swap Cache</button>
+			<button id="refreshButton">Refresh Page</button>
+			<div id="swapDisplay"></div>
+		</section>
+		<section id="resources">
+			<hgroup>
+				<h1>Resources</h1>
+			</hgroup>
+			<ul>
+				<li>
+					<a href="http://www.html5rocks.com/en/tutorials/appcache/beginner/">
+						A beginner's guide to using application cache - HTML 5 Rocks
+					</a>
+				</li>
+		</section>
+	</section>
+</body>
+<script>
+	var appCache = window.applicationCache;
+	
+	document.getElementById("statusButton").addEventListener("click", function(){
+		document.querySelector("#statusDisplay").textContent = appCache.status;
+	}, false);
+	
+	document.querySelector("#updateButton").addEventListener("click", function(){
+		appCache.update();
+	}, false);
+	
+	document.querySelector("#swapButton").addEventListener("click", function(){
+		appCache.swapCache();	
+	}, false);
+	
+	document.querySelector("#refreshButton").addEventListener("click", function(){
+		window.location.reload();	
+	}, false);
+	
+</script>
+</html>
